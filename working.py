@@ -25,10 +25,28 @@ def board_printing_func(bo):
                 print(str(bo[i][j]) + " ", end="")
 
 
-board_printing_func(board)
+def check_valid(board, number, position):
+
+    for i in range(len(board[0])):
+        if board[position[0][i]] == number and position[1] != i:
+            return False
+
+    for i in range(len(board)):
+        if board[i][position[1]] == number and position[0] != i:
+            return False
+
+    x_box = position[1] // 3
+    y_box = position[0] // 3
+
+    for i in range(y_box*3, y_box*3 + 3):
+        for j in range(x_box*3, x_box*3 + 3):
+            if board[i][j] == number and (i,j) != position:
+                return False
+
+    return True
 
 def empty_finder(bo):
-	for i in range(len(bo)):		# i denotes row
-		for j in range(len(bo[0])): 	#j denotes column
+	for i in range(len(bo)):
+		for j in range(len(bo[0])):
 			if bo[i][j] == 0:
 				return (i , j)
